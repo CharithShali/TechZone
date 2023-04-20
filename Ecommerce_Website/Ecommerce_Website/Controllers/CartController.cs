@@ -59,5 +59,40 @@ namespace Ecommerce_Website.Controllers
 
             return Ok(await _authContext.Carts.ToListAsync());
         }
+
+      
+        [HttpGet("Cart")]
+        public async Task<IActionResult> ShowCartDetails(int id)
+        {
+            var fullEntries = _authContext.Carts
+         .Join(
+             _authContext.CartItems,
+             cart => cart.CartId,
+               cartitem => cartitem.CartId,
+             (cart, cartitem) => new { cart, cartitem }
+         )
+         .Join(
+            _authContext.Products,
+             combinedEntry => combinedEntry.cartitem.ProductId,
+             product => product.ProductId,
+             (combinedEntry, product) => new
+             {
+                productimage = product.ImageName,
+                 productname = product.Title,
+                 cartquantity= combinedEntry.cartitem.Quantity,
+                 productprice=product.Price,
+                 amount= product.Price * combinedEntry.cartitem.Quantity,
+                 userid=combinedEntry.cart.UserId,
+             }
+         )
+         .Where(fullEntry => fullEntry.userid ==id)
+         .Take(10);
+
+
+            return Ok(fullEntries);
+
+
+        }
+
     }
 }

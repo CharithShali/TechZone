@@ -17,13 +17,13 @@ public partial class Product
 
     public int Quantity { get; set; }
 
-    public string ImageName { get; set; } = null!;
+    public string ImageName { get; set; } = null;
 
     public int? UserId { get; set; }
 
-    public virtual ICollection<CartItem> CartItems { get; } = new List<CartItem>();
+    public virtual ICollection<CartItem>? CartItems { get; } = new List<CartItem>();
 
-    public virtual ProductCategory Category { get; set; } = null!;
+    public virtual ProductCategory? Category { get; set; } = null;
 
     public virtual User? User { get; set; }
 }
