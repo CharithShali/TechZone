@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -100,7 +101,7 @@ namespace Ecommerce_Website.Controllers
             var identity = new ClaimsIdentity(new Claim[]
             {
                 new Claim(ClaimTypes.Role,user.Role),
-                new Claim(ClaimTypes.Name,$"{user.FirstName} {user.LastName} - {user.UserId}"),
+                new Claim(ClaimTypes.Name,$"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Email,user.Email)
             });
 
@@ -114,6 +115,16 @@ namespace Ecommerce_Website.Controllers
             var token = jwtTokenHadler.CreateToken(tokenDescriptor);
             return jwtTokenHadler.WriteToken(token);
         }
-     
+        [HttpGet("user")]
+        public async Task<IActionResult> ViewUser(string email)
+        {
+            var user = _authContext.Users
+                    .Where(b => b.Email == email)
+                    .FirstOrDefault();
+            return Ok(user);
+
+
+        }
+
     }
 }

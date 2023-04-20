@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Ecommerce_Website",
-    "\\Ecommerce_Website\\Controllers"
+    "\\Ecommerce_Website\\Controllers",
+    "\\Ecommerce_Website\\Helper"
   ],
-  "SelectedNode": "\\Ecommerce_Website.sln",
+  "SelectedNode": "\\Ecommerce_Website\\appsettings.json",
   "PreviewInSolutionExplorer": false
 }

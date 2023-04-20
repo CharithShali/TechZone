@@ -9,9 +9,9 @@ public partial class Cart
 
     public int UserId { get; set; }
 
-    public string Ordered { get; set; } = null!;
+    public string? Ordered { get; set; } ="";
 
-    public string OrderedOn { get; set; } = null!;
+    public string? OrderedOn { get; set; } = "";
 
     public virtual ICollection<CartItem> CartItems { get; } = new List<CartItem>();
 

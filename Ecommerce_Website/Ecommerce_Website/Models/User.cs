@@ -17,7 +17,7 @@ public partial class User
 
     public string Mobile { get; set; } = "";
 
-    public string Password { get; set; } = "";
+    public string? Password { get; set; } = "";
 
     public string CreatedAt { get; set; } = "";
 

@@ -8,7 +8,6 @@ public partial class Product
     public int ProductId { get; set; }
 
     public string Title { get; set; } = null!;
-        
 
     public string Description { get; set; } = null!;
 
@@ -24,7 +23,7 @@ public partial class Product
 
     public virtual ICollection<CartItem> CartItems { get; } = new List<CartItem>();
 
-    public virtual ProductCategory? Category { get; set; } 
+    public virtual ProductCategory Category { get; set; } = null!;
 
-    public virtual User? User { get; set; } 
+    public virtual User? User { get; set; }
 }
