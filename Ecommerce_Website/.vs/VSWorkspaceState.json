@@ -5,6 +5,6 @@
     "\\Ecommerce_Website\\Controllers",
     "\\Ecommerce_Website\\Helper"
   ],
-  "SelectedNode": "\\Ecommerce_Website\\appsettings.json",
+  "SelectedNode": "\\Ecommerce_Website\\Controllers\\CartController.cs",
   "PreviewInSolutionExplorer": false
 }

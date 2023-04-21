@@ -54,9 +54,6 @@ namespace Ecommerce_Website.Controllers
             cart.Ordered = "Ordered";
          
             await _authContext.SaveChangesAsync();
-
-
-
             return Ok(await _authContext.Carts.ToListAsync());
         }
 
@@ -83,6 +80,7 @@ namespace Ecommerce_Website.Controllers
                  productprice=product.Price,
                  amount= product.Price * combinedEntry.cartitem.Quantity,
                  userid=combinedEntry.cart.UserId,
+                 cartitemid=combinedEntry.cartitem.CartItemId
              }
          )
          .Where(fullEntry => fullEntry.userid ==id)
