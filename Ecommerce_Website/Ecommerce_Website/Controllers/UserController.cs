@@ -1,6 +1,8 @@
-﻿using Ecommerce_Website.Context;
+﻿
+using Ecommerce_Website.Context;
 using Ecommerce_Website.Helper;
 using Ecommerce_Website.Models;
+using Ecommerce_Website.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,19 +19,24 @@ namespace Ecommerce_Website.Controllers
     public class UserController : ControllerBase
     {
         private readonly TechZoneContext _authContext;
+        private readonly IUserService _userService;
 
-        public UserController(TechZoneContext authContext)
+        public UserController(TechZoneContext authContext, IUserService userService)
         {
             _authContext = authContext;
+            _userService = userService;
         }
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] User userObj)
         {
             
         if(userObj == null)
-                return BadRequest();
-
-            var user = await _authContext.Users.FirstOrDefaultAsync(x => x.Email == userObj.Email);
+                return BadRequest(new
+                {
+                    Message = "Enter Correct Credentials!"
+                });
+        var user =await _userService.Login(userObj);
+            
          if(user== null)
                 return NotFound(new {Message = "User not Found"});
 
@@ -57,7 +64,7 @@ namespace Ecommerce_Website.Controllers
 
         public async Task<IActionResult> RegisterUser([FromBody]User userObj)
         {
-
+            
             if(userObj==null)
                 return BadRequest();
 
@@ -67,32 +74,54 @@ namespace Ecommerce_Website.Controllers
                     Message = "Email Already Exist!"
                                 }
                     );
+            DateTime dateTime = DateTime.UtcNow.Date;
 
-
-
-            Console.WriteLine(userObj.Password);
             if (userObj==null)
                 return BadRequest();
             userObj.Password = PasswordHasher.HashPassword(userObj.Password);
-            await _authContext.Users.AddAsync(userObj);
-            await _authContext.SaveChangesAsync();
-            return Ok(new{
-                message="User Registed!"
-            });
+            userObj.CreatedAt = dateTime.ToString("yyyy/MM/dd"); 
+
+             var user=await _userService.Register(userObj);
+            if (user == null)
+            {
+                return BadRequest(new
+                {
+                    Message = "User Not Added!"
+                }
+                   );
+            }
+            else
+            {
+                return Ok(new
+                {
+                    message = "User Registed!"
+                });
+            }
         }
 
 
-        private Task<bool> CheckEmailExistAsync(string email) =>
-            _authContext.Users.AnyAsync(x => x.Email == email);
+        private Task<bool> CheckEmailExistAsync(string email)
+        {
+            return _userService.CheckEmail(email);
+        }
 
 
         [HttpGet]
         public async Task<IActionResult> ViewUsers()
         {
-            var employee = await _authContext.Users.ToListAsync();
+            var employee = await _userService.GetAllUsers();
             return Ok(employee);
 
-  
+
+        }
+
+        [HttpGet("userbyid")]
+        public async Task<IActionResult> ViewUser(int id)
+        {
+            var employer = await _userService.ViewUser(id);
+            return Ok(employer);
+
+
         }
         private string CreateJwt(User user)
         {
@@ -118,11 +147,8 @@ namespace Ecommerce_Website.Controllers
         [HttpGet("user")]
         public async Task<IActionResult> ViewUser(string email)
         {
-            var user = _authContext.Users
-                    .Where(b => b.Email == email)
-                    .FirstOrDefault();
-            return Ok(user);
-
+            var user = _userService.ViewUserByemail(email);
+            return Ok(user.Result);
 
         }
 

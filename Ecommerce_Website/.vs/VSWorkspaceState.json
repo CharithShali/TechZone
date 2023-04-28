@@ -3,8 +3,10 @@
     "",
     "\\Ecommerce_Website",
     "\\Ecommerce_Website\\Controllers",
-    "\\Ecommerce_Website\\Helper"
+    "\\Ecommerce_Website\\Helper",
+    "\\Ecommerce_Website\\Models",
+    "\\Ecommerce_Website\\Services"
   ],
-  "SelectedNode": "\\Ecommerce_Website\\Controllers\\CartController.cs",
+  "SelectedNode": "\\Ecommerce_Website\\Controllers\\OrderController.cs",
   "PreviewInSolutionExplorer": false
 }

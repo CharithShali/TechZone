@@ -17,13 +17,13 @@ public partial class User
 
     public string Mobile { get; set; } = "";
 
-    public string? Password { get; set; } = "";
+    public string? Password { get; set; }
 
     public string CreatedAt { get; set; } = "";
 
-    public string? Role { get; set; } = "";
+    public string? Role { get; set; }
 
-    public string? Token { get; set; } = "";
+    public string? Token { get; set; }
 
     public virtual ICollection<Order> Orders { get; } = new List<Order>();
 

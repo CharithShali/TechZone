@@ -1,6 +1,8 @@
-﻿using Ecommerce_Website.Context;
+﻿
+using Ecommerce_Website.Context;
 using Ecommerce_Website.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce_Website.Controllers
@@ -16,18 +18,45 @@ namespace Ecommerce_Website.Controllers
             _authContext = authContext;
         }
 
-        [HttpPost("Cartitem")]
-        public async Task<IActionResult> RegisterAcart([FromBody] CartItem cartObj)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> RegisterAcart([FromBody] CartItem cartObj, [FromRoute] int id)
         {
 
             if (cartObj == null)
                 return BadRequest();
-            
-            await _authContext.CartItems.AddAsync(cartObj);
+
+            var Product = _authContext.Products.Find(cartObj.ProductId);
+
+            Product.Quantity = Product.Quantity - cartObj.Quantity;
             await _authContext.SaveChangesAsync();
+            
+            var user = (
+              from ai in _authContext.Carts
+              join al in _authContext.CartItems on ai.CartId equals al.CartId
+              where (ai.UserId == id && al.ProductId==cartObj.ProductId)
+              select new AppInformation
+              {
+                  NavigationType=ai.CartId,
+
+              }).FirstOrDefault();
+
+
+            if (user==null)
+            {
+                await _authContext.CartItems.AddAsync(cartObj);
+                await _authContext.SaveChangesAsync();       
+               
+            }
+            else {
+                var CartItem = _authContext.CartItems.Where(c => c.CartId == user.NavigationType).SingleOrDefault();
+                    CartItem.Quantity = CartItem.Quantity + cartObj.Quantity;
+                    await _authContext.SaveChangesAsync();
+
+            };
+
             return Ok(new
             {
-                message = "Cart item Registed!"
+                message = "Product Registed!"
             });
 
 

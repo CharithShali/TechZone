@@ -173,3 +173,5 @@ C:\Users\shali\Desktop\BCS\techzone\Ecommerce_Website\Ecommerce_Website\obj\Debu
 C:\Users\shali\Desktop\BCS\techzone\Ecommerce_Website\Ecommerce_Website\obj\Debug\net6.0\Ecommerce_Website.genruntimeconfig.cache
 C:\Users\shali\Desktop\BCS\techzone\Ecommerce_Website\Ecommerce_Website\obj\Debug\net6.0\ref\Ecommerce_Website.dll
 C:\Users\shali\Desktop\BCS\techzone\Ecommerce_Website\Ecommerce_Website\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\shali\Desktop\BCS\techzone\Ecommerce_Website\Ecommerce_Website\bin\Debug\net6.0\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\shali\Desktop\BCS\techzone\Ecommerce_Website\Ecommerce_Website\bin\Debug\net6.0\Microsoft.Xrm.Sdk.dll

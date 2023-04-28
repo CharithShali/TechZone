@@ -161,6 +161,28 @@
           }
         }
       },
+      "Microsoft.CrmSdk.CoreAssemblies/9.0.2.48": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "6.0.2"
+        },
+        "compile": {
+          "lib/net462/Microsoft.Crm.Sdk.Proxy.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.Xrm.Sdk.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.Crm.Sdk.Proxy.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.Xrm.Sdk.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.CSharp/4.5.0": {
         "type": "package",
         "compile": {
@@ -1516,6 +1538,25 @@
         "ref/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Microsoft.CrmSdk.CoreAssemblies/9.0.2.48": {
+      "sha512": "r7r0KTHe+kVcp07bH5+xsQSD6qYjwp3MaQQQWK/HfD1s5sDedJ5YFcMsuIl3YI4tHeSLhelm7i2biJxjpHJ36w==",
+      "type": "package",
+      "path": "microsoft.crmsdk.coreassemblies/9.0.2.48",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/Dataverse.128x128.png",
+        "lib/LicenseTerms.docx",
+        "lib/Other Redistributable.txt",
+        "lib/Third Party Notices for Dynamics 365 SDK.docx",
+        "lib/net462/Microsoft.Crm.Sdk.Proxy.dll",
+        "lib/net462/Microsoft.Crm.Sdk.Proxy.xml",
+        "lib/net462/Microsoft.Xrm.Sdk.dll",
+        "lib/net462/Microsoft.Xrm.Sdk.xml",
+        "microsoft.crmsdk.coreassemblies.9.0.2.48.nupkg.sha512",
+        "microsoft.crmsdk.coreassemblies.nuspec"
       ]
     },
     "Microsoft.CSharp/4.5.0": {
@@ -4148,6 +4189,7 @@
     "net6.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.11",
       "Microsoft.AspNetCore.Cors >= 2.2.0",
+      "Microsoft.CrmSdk.CoreAssemblies >= 9.0.2.48",
       "Microsoft.EntityFrameworkCore >= 7.0.5",
       "Microsoft.EntityFrameworkCore.SqlServer >= 7.0.4",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.4",
@@ -4201,6 +4243,10 @@
             "target": "Package",
             "version": "[2.2.0, )"
           },
+          "Microsoft.CrmSdk.CoreAssemblies": {
+            "target": "Package",
+            "version": "[9.0.2.48, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[7.0.5, )"
@@ -4242,5 +4288,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.CrmSdk.CoreAssemblies 9.0.2.48' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.CrmSdk.CoreAssemblies",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

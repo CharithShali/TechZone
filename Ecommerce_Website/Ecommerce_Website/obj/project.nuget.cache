@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6CHfr7ij1VduUuBbWAj9YMVQrJ32rCnJeK9e0IWjdDN8Ht3fk66RldBBu2NZpgw2ov1Knjo/7xW2mi3lLbfjnQ==",
+  "dgSpecHash": "dTH0WTV4K8ulMMxhOkTIiErhNDjhrnrGwThyW9AzIWxdrYS040iVVKBh2XuR94fZFw/cdnQojEBjvdzSXEVa7w==",
   "success": true,
   "projectFilePath": "C:\\Users\\shali\\Desktop\\BCS\\techzone\\Ecommerce_Website\\Ecommerce_Website\\Ecommerce_Website.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\shali\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
     "C:\\Users\\shali\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\shali\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
+    "C:\\Users\\shali\\.nuget\\packages\\microsoft.crmsdk.coreassemblies\\9.0.2.48\\microsoft.crmsdk.coreassemblies.9.0.2.48.nupkg.sha512",
     "C:\\Users\\shali\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\shali\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
     "C:\\Users\\shali\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.0.1\\microsoft.data.sqlclient.sni.runtime.5.0.1.nupkg.sha512",
@@ -86,5 +87,16 @@
     "C:\\Users\\shali\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\shali\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.CrmSdk.CoreAssemblies 9.0.2.48' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.CrmSdk.CoreAssemblies",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

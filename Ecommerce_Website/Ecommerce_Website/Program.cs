@@ -1,5 +1,8 @@
+
 using Ecommerce_Website.Context;
+using Ecommerce_Website.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -41,6 +44,10 @@ builder.Services.AddAuthentication(x =>
     };
 
 });
+builder.Services.AddScoped<IProductService, ProductServices>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
