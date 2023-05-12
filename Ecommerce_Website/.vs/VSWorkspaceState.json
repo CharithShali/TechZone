@@ -2,11 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Ecommerce_Website",
-    "\\Ecommerce_Website\\Controllers",
-    "\\Ecommerce_Website\\Helper",
-    "\\Ecommerce_Website\\Models",
-    "\\Ecommerce_Website\\Services"
+    "\\Ecommerce_Website\\Controllers"
   ],
-  "SelectedNode": "\\Ecommerce_Website.sln",
+  "SelectedNode": "\\Ecommerce_Website\\Controllers\\UserController.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -61,5 +61,17 @@ namespace Ecommerce_Website.Services
 
         }
 
+        public async Task<List<Product>> GetByCategory(int id)
+        {
+            
+            var products = await _context.Products.Where(c => c.CategoryId == id).ToListAsync();
+            return products;
+        }
+
+        public async Task<List<Product>> searchbyName(string name)
+        {
+            var products = await _context.Products.Where(p => p.Title.ToLower().Contains(name.ToLower())).ToListAsync();
+            return products;
+        }
     }
 }

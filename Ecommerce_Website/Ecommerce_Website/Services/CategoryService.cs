@@ -25,5 +25,11 @@ namespace Ecommerce_Website.Services
             var categories = await _context.ProductCategories.ToListAsync();
             return categories;
         }
+
+        public async Task<List<ProductCategory>> GetByCategory(string categoryObj)
+        {
+            var category = await _context.ProductCategories.Where(c => c.Category == categoryObj).ToListAsync();
+            return category;
+        }
     }
 }
