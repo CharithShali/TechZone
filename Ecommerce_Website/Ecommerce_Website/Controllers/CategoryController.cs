@@ -1,5 +1,7 @@
-﻿using Ecommerce_Website.Context;
+﻿
+using Ecommerce_Website.Context;
 using Ecommerce_Website.Models;
+using Ecommerce_Website.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +13,12 @@ namespace Ecommerce_Website.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly TechZoneContext _authContext;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(TechZoneContext authContext)
+        public CategoryController(TechZoneContext authContext,ICategoryService categoryService)
         {
             _authContext = authContext;
+            _categoryService = categoryService;
         }
 
         [HttpPost("addcategory")]
@@ -23,22 +27,22 @@ namespace Ecommerce_Website.Controllers
 
             if (catObj == null)
             return BadRequest();
-            await _authContext.ProductCategories.AddAsync(catObj);
-            await _authContext.SaveChangesAsync();
+          var category=await _categoryService.Add(catObj);
             return Ok(new
             {
-                message = "User Registed!"
-            });
+                message = "User Registed!",
+                category = category
+            }); ;
         }
 
         [HttpGet]
         public async Task<IActionResult> ViewCat()
         {
-            var cat = await _authContext.ProductCategories.ToListAsync();
+            var cat =await _categoryService.GetAll();
             return Ok(cat);
 
 
         }
-
+    
     }
 }

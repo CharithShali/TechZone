@@ -9,17 +9,13 @@ public partial class Order
 
     public int UserId { get; set; }
 
-    public int CartId { get; set; }
+    public string Status { get; set; }
 
-    public int PaymentId { get; set; }
+    public double? Amount { get; set; }
 
-    public string CreatedAt { get; set; } = null!;
-
-    public virtual Cart Cart { get; set; } = null!;
+    public string? AgentEmail { get; set; }
 
     public virtual ICollection<OrderConfimation> OrderConfimations { get; } = new List<OrderConfimation>();
 
-    public virtual Payment Payment { get; set; } = null!;
-
-    public virtual User User { get; set; } = null!;
+    public virtual User? User { get; set; } 
 }

@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Ecommerce_Website.Context;
 using Ecommerce_Website.Models;
+using Ecommerce_Website.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,43 +14,35 @@ namespace Ecommerce_Website.Controllers
     public class ProductController : ControllerBase
     {
         private readonly TechZoneContext _authContext;
+        private readonly IProductService _productService;
+        private readonly ICategoryService _categoryService;
 
-        public ProductController(TechZoneContext authContext)
+        public ProductController(TechZoneContext authContext,IProductService productService, ICategoryService categoryService)
         {
             _authContext = authContext;
+            _productService = productService;
+            _categoryService = categoryService;
         }
 
 
         [HttpPost("addproduct")]
         public async Task<IActionResult> AddProduct([FromBody] Product proObj)
         {
-            var cate = _authContext.ProductCategories.Find(proObj.CategoryId);
-            var user=_authContext.Users.Find(1);
-
-            Product product = new Product();
-
-            product.ProductId = proObj.ProductId;
-            product.ImageName = proObj.ImageName;
-            product.Description = proObj.Description;
-            product.Price = proObj.Price;
-            product.Category = cate;
-            product.Quantity = proObj.Quantity;
-            product.Title = proObj.Title;
-            product.User = user;
-
+           
             if (proObj == null)
                 return BadRequest();
 
-            Console.WriteLine(proObj);
-            var cat = await _authContext.ProductCategories.ToArrayAsync();
-            proObj.Category = cat[0];
- 
-            await _authContext.Products.AddAsync(product);
-            await _authContext.SaveChangesAsync();
-            return Ok(new
+            var pro = await _productService.Add(proObj);
+            if (pro == null)
             {
-                message = "Product Registed!"
-            });
+                return BadRequest();
+            }
+            else {
+                return Ok(new
+                {
+                    message = "Product Added!"
+                });
+            }
         }
 
         [HttpGet]
@@ -64,9 +57,28 @@ namespace Ecommerce_Website.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> ViewProduct([FromRoute] int id)
         {
-            var product = _authContext.Products.Where(c => c.ProductId == id).SingleOrDefault();
+            var product = await _productService.GetById(id);
 
             return Ok(product);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditProduct([FromRoute] int id,Product product)
+        {
+          var prod= await _productService.Edit(id, product);
+            return Ok(prod);
+        }
+
+        [HttpGet("filter/{id}")]
+        public async Task<IActionResult> EditProduct([FromRoute] int id)
+        {
+            var products = await _productService.GetByCategory(id);
+            return Ok(products);
+        }
+        [HttpGet("Search")]
+        public async Task<IActionResult> searchProduct(string name)
+        {
+            var products = await _productService.searchbyName(name);
+            return Ok(products);
         }
 
     }

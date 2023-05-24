@@ -8,7 +8,6 @@ public partial class Product
     public int ProductId { get; set; }
 
     public string Title { get; set; } = null!;
-        
 
     public string Description { get; set; } = null!;
 
@@ -26,5 +25,5 @@ public partial class Product
 
     public virtual ProductCategory? Category { get; set; } 
 
-    public virtual User? User { get; set; } 
+    public virtual User? User { get; set; }
 }

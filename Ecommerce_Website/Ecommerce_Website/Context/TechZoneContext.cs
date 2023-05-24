@@ -38,7 +38,7 @@ public partial class TechZoneContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=TechZone;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=CS\\SQLEXPRESS;database=TechZone;Trusted_Connection=true;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -71,6 +71,8 @@ public partial class TechZoneContext : DbContext
 
             entity.ToTable("CartItem");
 
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+
             entity.HasOne(d => d.Cart).WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.CartId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -86,15 +88,12 @@ public partial class TechZoneContext : DbContext
         {
             entity.ToTable("Order");
 
-            entity.HasOne(d => d.Cart).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.CartId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Orders_Carts");
-
-            entity.HasOne(d => d.Payment).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.PaymentId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Orders_Payments");
+            entity.Property(e => e.AgentEmail)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserId)
@@ -107,8 +106,6 @@ public partial class TechZoneContext : DbContext
             entity.ToTable("OrderConfimation");
 
             entity.Property(e => e.Status).HasMaxLength(50);
-
-            
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderConfimations)
                 .HasForeignKey(d => d.OrderId)
@@ -138,12 +135,14 @@ public partial class TechZoneContext : DbContext
         {
             entity.HasKey(e => e.ProductId).HasName("PK_Product");
 
-           
-
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Product_ProductCategories");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Products)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_Products_User");
         });
 
         modelBuilder.Entity<ProductCategory>(entity =>
@@ -151,7 +150,6 @@ public partial class TechZoneContext : DbContext
             entity.HasKey(e => e.CategoryId);
 
             entity.Property(e => e.Category).HasMaxLength(50);
-            entity.Property(e => e.Description).HasMaxLength(50);
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -161,7 +159,9 @@ public partial class TechZoneContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.Mobile).HasMaxLength(15);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.Password).IsUnicode(false);
+            entity.Property(e => e.Role).HasMaxLength(50);
+            entity.Property(e => e.Token).HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);

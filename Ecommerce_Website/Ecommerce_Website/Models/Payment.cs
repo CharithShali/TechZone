@@ -15,8 +15,6 @@ public partial class Payment
 
     public string CreatedAt { get; set; } = null!;
 
-    public virtual ICollection<Order> Orders { get; } = new List<Order>();
-
     public virtual PaymentMethod PaymentMethod { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
